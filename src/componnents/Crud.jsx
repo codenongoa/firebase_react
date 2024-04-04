@@ -5,6 +5,7 @@ import {collection, doc, addDoc, getDocs,
 
 
 const Crud = () => {
+ 
     const [ nom, setNom] = useState(" ");
     const [ fetchData, setFetchData] = useState([]);
     const [ id, setId] = useState();
@@ -56,7 +57,17 @@ const Crud = () => {
             alert(error, " modification non effectuer")
         }
     }
+    const deleted = async () => {
+        const deletedref = doc(dbRef, id)
 
+        try {
+            await deleteDoc(deletedref)
+            alert("suppression effectuee")
+            window.location.reload()
+        } catch(error) {
+            alert(error, " suppression non effectuer")
+        }
+    }
     return (
         <div style={{backgroundColor:'#7db4f9',padding:15,borderRadius: 8 }}>
             <h2> Ajouter </h2>
@@ -67,6 +78,8 @@ const Crud = () => {
             style={{ margin: 15, backgroundColor: "gray", color:"white"}}>Ajouter</button>
             <button onClick={update} 
             style={{ margin: 15, backgroundColor: "green", color:"white"}}>valider</button>
+            <button onClick={deleted} 
+            style={{ margin: 15, backgroundColor: "red", color:"white"}}>delete </button>
             {
                 fetchData.map((data) => {
                     return (
