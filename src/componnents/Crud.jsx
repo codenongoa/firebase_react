@@ -57,7 +57,7 @@ const Crud = () => {
             alert(error, " modification non effectuer")
         }
     }
-    const deleted = async () => {
+    const deleted = async (id) => {
         const deletedref = doc(dbRef, id)
 
         try {
@@ -69,7 +69,7 @@ const Crud = () => {
         }
     }
     return (
-        <div style={{backgroundColor:'#7db4f9',padding:15,borderRadius: 8 }}>
+        <div style={{backgroundColor:'#7db4f9',padding:15,borderRadius: 8, width: 807}}>
             <h2> Ajouter </h2>
             <input type="text" placeholder="nom" autoComplete="off" 
             value={nom} onChange={(e) =>setNom(e.target.value)} 
@@ -78,15 +78,19 @@ const Crud = () => {
             style={{ margin: 15, backgroundColor: "gray", color:"white"}}>Ajouter</button>
             <button onClick={update} 
             style={{ margin: 15, backgroundColor: "green", color:"white"}}>valider</button>
-            <button onClick={deleted} 
-            style={{ margin: 15, backgroundColor: "red", color:"white"}}>delete </button>
+           
             {
                 fetchData.map((data) => {
                     return (
                         <div key={data.id} 
                         style={{display:"flex", alignItems:"center",justifyContent:"space-between", margin: 23}}>
                             <h4> Nom:{data.Nom} </h4>
+                            <div style={{display: "flex",justifyContent: "space-between" , alignItems:"center"}}>
                             <button onClick={() =>passData(data.id)} style={{backgroundColor:"#96D1EE"}}>Modifier</button>
+                            <button onClick={() => deleted(data.id) } 
+            style={{ margin: 5, backgroundColor: "red", color:"white"}}>delete </button>
+                            </div>
+                            
                         </div>
                     )
                 })
